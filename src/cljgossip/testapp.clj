@@ -27,25 +27,28 @@
   (gossip/sign-out conn player-name)
   (swap! app update-in [:game :players] disj player-name))
 
-;; TODO: swap! config into env before logging in
-(def conn (gossip/login (:env @app) client/ws-connect (gossip-handlers app)))
+(comment
+  ;; TODO: swap! config into env before logging in
+  (def conn (gossip/login (:env @app) client/ws-connect (gossip-handlers app)))
 
-(add-player! app conn "Frida")
+  (add-player! app conn "Frida")
 
-(gossip/send-all conn "gossip" "Frida" "hi")
+  (gossip/send-all conn "gossip" "Frida" "hi")
 
-(add-player! app conn "Thor")
+  (add-player! app conn "Thor")
 
-(gossip/send-all conn "gossip" "Thor" "hello")
+  (gossip/send-all conn "gossip" "Thor" "hello")
 
-(gossip/send-to conn "Frida" "GameName" "Thor" "hi, Thor")
+  (gossip/send-to conn "Frida" "GameName" "Thor" "hi, Thor")
 
-(gossip/status conn nil)
+  (gossip/status conn nil)
 
-(remove-player! app conn "Frida")
+  (remove-player! app conn "Frida")
 
-(remove-player! app conn "Thor")
+  (remove-player! app conn "Thor")
 
-(gossip/close conn)
+  (gossip/close conn)
+
+  )
 
 
